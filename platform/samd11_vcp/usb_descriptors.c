@@ -58,62 +58,106 @@ const alignas(4) usb_configuration_hierarchy_t usb_configuration_hierarchy =
     .bLength             = sizeof(usb_configuration_descriptor_t),
     .bDescriptorType     = USB_CONFIGURATION_DESCRIPTOR,
     .wTotalLength        = sizeof(usb_configuration_hierarchy_t),
-    .bNumInterfaces      = 3,
+    .bNumInterfaces      = 4,
     .bConfigurationValue = 1,
     .iConfiguration      = 0,
     .bmAttributes        = 0x80,
     .bMaxPower           = 250, // 500 mA
   },
 
-  .hid_interface =
-  {
-    .bLength             = sizeof(usb_interface_descriptor_t),
-    .bDescriptorType     = USB_INTERFACE_DESCRIPTOR,
-    .bInterfaceNumber    = 0,
-    .bAlternateSetting   = 0,
-    .bNumEndpoints       = 2,
-    .bInterfaceClass     = USB_HID_DEVICE_CLASS,
-    .bInterfaceSubClass  = 0,
-    .bInterfaceProtocol  = 0,
-    .iInterface          = USB_STR_CMSIS_DAP,
-  },
+        .hid_interface =
+                {
+                        .bLength             = sizeof(usb_interface_descriptor_t),
+                        .bDescriptorType     = USB_INTERFACE_DESCRIPTOR,
+                        .bInterfaceNumber    = 0,
+                        .bAlternateSetting   = 0,
+                        .bNumEndpoints       = 2,
+                        .bInterfaceClass     = USB_HID_DEVICE_CLASS,
+                        .bInterfaceSubClass  = 0,
+                        .bInterfaceProtocol  = 0,
+                        .iInterface          = USB_STR_CMSIS_DAP,
+                },
 
-  .hid =
-  {
-    .bLength             = sizeof(usb_hid_descriptor_t),
-    .bDescriptorType     = USB_HID_DESCRIPTOR,
-    .bcdHID              = 0x0111,
-    .bCountryCode        = 0,
-    .bNumDescriptors     = 1,
-    .bDescriptorType1    = USB_HID_REPORT_DESCRIPTOR,
-    .wDescriptorLength   = sizeof(usb_hid_report_descriptor),
-  },
+        .hid =
+                {
+                        .bLength             = sizeof(usb_hid_descriptor_t),
+                        .bDescriptorType     = USB_HID_DESCRIPTOR,
+                        .bcdHID              = 0x0111,
+                        .bCountryCode        = 0,
+                        .bNumDescriptors     = 1,
+                        .bDescriptorType1    = USB_HID_REPORT_DESCRIPTOR,
+                        .wDescriptorLength   = sizeof(usb_hid_report_descriptor),
+                },
 
-  .hid_ep_in =
-  {
-    .bLength             = sizeof(usb_endpoint_descriptor_t),
-    .bDescriptorType     = USB_ENDPOINT_DESCRIPTOR,
-    .bEndpointAddress    = USB_IN_ENDPOINT | USB_HID_EP_SEND,
-    .bmAttributes        = USB_INTERRUPT_ENDPOINT,
-    .wMaxPacketSize      = 64,
-    .bInterval           = 1,
-  },
+        .hid_ep_in =
+                {
+                        .bLength             = sizeof(usb_endpoint_descriptor_t),
+                        .bDescriptorType     = USB_ENDPOINT_DESCRIPTOR,
+                        .bEndpointAddress    = USB_IN_ENDPOINT | USB_HID_EP_SEND,
+                        .bmAttributes        = USB_INTERRUPT_ENDPOINT,
+                        .wMaxPacketSize      = 64,
+                        .bInterval           = 1,
+                },
 
-  .hid_ep_out =
-  {
-    .bLength             = sizeof(usb_endpoint_descriptor_t),
-    .bDescriptorType     = USB_ENDPOINT_DESCRIPTOR,
-    .bEndpointAddress    = USB_OUT_ENDPOINT | USB_HID_EP_RECV,
-    .bmAttributes        = USB_INTERRUPT_ENDPOINT,
-    .wMaxPacketSize      = 64,
-    .bInterval           = 1,
-  },
+        .hid_ep_out =
+                {
+                        .bLength             = sizeof(usb_endpoint_descriptor_t),
+                        .bDescriptorType     = USB_ENDPOINT_DESCRIPTOR,
+                        .bEndpointAddress    = USB_OUT_ENDPOINT | USB_HID_EP_RECV,
+                        .bmAttributes        = USB_INTERRUPT_ENDPOINT,
+                        .wMaxPacketSize      = 64,
+                        .bInterval           = 1,
+                },
+
+        .hid_interface0 =
+                {
+                        .bLength             = sizeof(usb_interface_descriptor_t),
+                        .bDescriptorType     = USB_INTERFACE_DESCRIPTOR,
+                        .bInterfaceNumber    = 1,
+                        .bAlternateSetting   = 0,
+                        .bNumEndpoints       = 2,
+                        .bInterfaceClass     = USB_HID_DEVICE_CLASS,
+                        .bInterfaceSubClass  = 0,
+                        .bInterfaceProtocol  = 0,
+                        .iInterface          = USB_STR_CMSIS_DAP,
+                },
+
+        .hid0 =
+                {
+                        .bLength             = sizeof(usb_hid_descriptor_t),
+                        .bDescriptorType     = USB_HID_DESCRIPTOR,
+                        .bcdHID              = 0x0111,
+                        .bCountryCode        = 0,
+                        .bNumDescriptors     = 1,
+                        .bDescriptorType1    = USB_HID_REPORT_DESCRIPTOR,
+                        .wDescriptorLength   = sizeof(usb_hid_report_descriptor),
+                },
+
+        .hid_ep_in0 =
+                {
+                        .bLength             = sizeof(usb_endpoint_descriptor_t),
+                        .bDescriptorType     = USB_ENDPOINT_DESCRIPTOR,
+                        .bEndpointAddress    = USB_IN_ENDPOINT | USB_HID0_EP_SEND,
+                        .bmAttributes        = USB_INTERRUPT_ENDPOINT,
+                        .wMaxPacketSize      = 64,
+                        .bInterval           = 1,
+                },
+
+        .hid_ep_out0 =
+                {
+                        .bLength             = sizeof(usb_endpoint_descriptor_t),
+                        .bDescriptorType     = USB_ENDPOINT_DESCRIPTOR,
+                        .bEndpointAddress    = USB_OUT_ENDPOINT | USB_HID0_EP_RECV,
+                        .bmAttributes        = USB_INTERRUPT_ENDPOINT,
+                        .wMaxPacketSize      = 64,
+                        .bInterval           = 1,
+                },
 
   .iad =
   { 
     .bLength             = sizeof(usb_interface_association_descriptor_t),
     .bDescriptorType     = USB_INTERFACE_ASSOCIATION_DESCRIPTOR,
-    .bFirstInterface     = 1,
+    .bFirstInterface     = 2,
     .bInterfaceCount     = 2,
     .bFunctionClass      = USB_CDC_COMM_CLASS,
     .bFunctionSubClass   = USB_CDC_ACM_SUBCLASS,
@@ -125,7 +169,7 @@ const alignas(4) usb_configuration_hierarchy_t usb_configuration_hierarchy =
   {
     .bLength             = sizeof(usb_interface_descriptor_t),
     .bDescriptorType     = USB_INTERFACE_DESCRIPTOR,
-    .bInterfaceNumber    = 1,
+    .bInterfaceNumber    = 2,
     .bAlternateSetting   = 0,
     .bNumEndpoints       = 1,
     .bInterfaceClass     = USB_CDC_COMM_CLASS,
@@ -156,7 +200,7 @@ const alignas(4) usb_configuration_hierarchy_t usb_configuration_hierarchy =
     .bDescriptorType     = USB_CS_INTERFACE_DESCRIPTOR,
     .bDescriptorSubtype  = USB_CDC_CALL_MGMT_SUBTYPE,
     .bmCapabilities      = USB_CDC_CALL_MGMT_OVER_DCI,
-    .bDataInterface      = 2,
+    .bDataInterface      = 3,
   },
 
   .cdc_union =
@@ -164,8 +208,8 @@ const alignas(4) usb_configuration_hierarchy_t usb_configuration_hierarchy =
     .bFunctionalLength   = sizeof(usb_cdc_union_functional_descriptor_t),
     .bDescriptorType     = USB_CS_INTERFACE_DESCRIPTOR,
     .bDescriptorSubtype  = USB_CDC_UNION_SUBTYPE,
-    .bMasterInterface    = 1,
-    .bSlaveInterface0    = 2,
+    .bMasterInterface    = 2,
+    .bSlaveInterface0    = 3,
   },
 
   .ep_comm =
@@ -182,7 +226,7 @@ const alignas(4) usb_configuration_hierarchy_t usb_configuration_hierarchy =
   {
     .bLength             = sizeof(usb_interface_descriptor_t),
     .bDescriptorType     = USB_INTERFACE_DESCRIPTOR,
-    .bInterfaceNumber    = 2,
+    .bInterfaceNumber    = 3,
     .bAlternateSetting   = 0,
     .bNumEndpoints       = 2,
     .bInterfaceClass     = USB_CDC_DATA_CLASS,
