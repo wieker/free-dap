@@ -39,14 +39,18 @@
 /*- Prototypes --------------------------------------------------------------*/
 static void usb_hid_ep_send_callback(int size);
 static void usb_hid_ep_recv_callback(int size);
+static void usb_hid0_ep_send_callback(int size);
+static void usb_hid0_ep_recv_callback(int size);
 
 /*- Implementations ---------------------------------------------------------*/
 
 //-----------------------------------------------------------------------------
 void usb_hid_init(void)
 {
-  usb_set_callback(USB_HID_EP_SEND, usb_hid_ep_send_callback);
-  usb_set_callback(USB_HID_EP_RECV, usb_hid_ep_recv_callback);
+    usb_set_callback(USB_HID_EP_SEND, usb_hid_ep_send_callback);
+    usb_set_callback(USB_HID_EP_RECV, usb_hid_ep_recv_callback);
+    usb_set_callback(USB_HID0_EP_SEND, usb_hid0_ep_send_callback);
+    usb_set_callback(USB_HID0_EP_RECV, usb_hid0_ep_recv_callback);
 }
 
 //-----------------------------------------------------------------------------
@@ -62,16 +66,41 @@ void usb_hid_recv(uint8_t *data, int size)
 }
 
 //-----------------------------------------------------------------------------
+void usb_hid0_send(uint8_t *data, int size)
+{
+    usb_send(USB_HID0_EP_SEND, data, size);
+}
+
+//-----------------------------------------------------------------------------
+void usb_hid0_recv(uint8_t *data, int size)
+{
+  usb_recv(USB_HID0_EP_RECV, data, size);
+}
+
+//-----------------------------------------------------------------------------
 static void usb_hid_ep_send_callback(int size)
 {
-  usb_hid_send_callback();
-  (void)size;
+    usb_hid_send_callback();
+    (void)size;
 }
 
 //-----------------------------------------------------------------------------
 static void usb_hid_ep_recv_callback(int size)
 {
-  usb_hid_recv_callback(size);
+    usb_hid_recv_callback(size);
+}
+
+//-----------------------------------------------------------------------------
+static void usb_hid0_ep_send_callback(int size)
+{
+    usb_dgw_send_callback();
+    (void)size;
+}
+
+//-----------------------------------------------------------------------------
+static void usb_hid0_ep_recv_callback(int size)
+{
+    usb_dgw_recv_callback(size);
 }
 
 //-----------------------------------------------------------------------------

@@ -65,9 +65,14 @@ void usb_hid_init(void);
 bool usb_hid_handle_request(usb_request_t *request);
 void usb_hid_send(uint8_t *data, int size);
 void usb_hid_recv(uint8_t *data, int size);
+void usb_hid0_send(uint8_t *data, int size);
+void usb_hid0_recv(uint8_t *data, int size);
 
 void usb_hid_send_callback(void);
 void usb_hid_recv_callback(int size);
+
+void usb_dgw_send_callback(void);
+void usb_dgw_recv_callback(int size);
 
 #endif // _USB_HID_H_
 
