@@ -47,4 +47,7 @@ add_executable(samd11_composite
         ../usb_hid.c
         ../usb_descriptors.c
         ../startup_samd11.c
-        ../../../dap.c)
+        ../../../dap.c
+        ../dgw.c
+        ../gpio.c
+        ../spi_master.c)
