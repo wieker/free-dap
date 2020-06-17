@@ -249,7 +249,7 @@ void usb_hid_send_callback(void)
 void usb_hid_recv_callback(int size)
 {
   app_dap_event = true;
-  dap_process_request(app_request_buffer, app_response_buffer);
+  //dap_process_request(app_request_buffer, app_response_buffer);
   usb_hid_send(app_response_buffer, sizeof(app_response_buffer));
   (void)size;
 }
@@ -329,7 +329,7 @@ int main(void)
 {
   sys_init();
   sys_time_init();
-  dap_init();
+  //dap_init();
   usb_init();
   usb_cdc_init();
   usb_hid_init();
