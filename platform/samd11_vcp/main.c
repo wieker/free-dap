@@ -47,9 +47,6 @@
 #define UART_WAIT_TIMEOUT      10 // ms
 #define STATUS_TIMEOUT         250 // ms
 
-HAL_GPIO_PIN(VCP_STATUS,       A, 2);
-HAL_GPIO_PIN(DAP_STATUS,       A, 4);
-
 /*- Variables ---------------------------------------------------------------*/
 static alignas(4) uint8_t app_request_buffer[DAP_CONFIG_PACKET_SIZE];
 static alignas(4) uint8_t app_response_buffer[DAP_CONFIG_PACKET_SIZE];
@@ -310,16 +307,6 @@ static void status_timer_task(void)
 
   app_status_timeout = get_system_time() + STATUS_TIMEOUT;
 
-  if (app_dap_event)
-    HAL_GPIO_DAP_STATUS_toggle();
-  else
-    HAL_GPIO_DAP_STATUS_set();
-
-  if (app_vcp_event)
-    HAL_GPIO_VCP_STATUS_toggle();
-  else
-    HAL_GPIO_VCP_STATUS_write(app_vcp_open);
-
   app_dap_event = false;
   app_vcp_event = false;
 }
@@ -335,12 +322,6 @@ int main(void)
   usb_hid_init();
 
   app_status_timeout = STATUS_TIMEOUT;
-
-  HAL_GPIO_VCP_STATUS_out();
-  HAL_GPIO_VCP_STATUS_clr();
-
-  HAL_GPIO_DAP_STATUS_out();
-  HAL_GPIO_DAP_STATUS_set();
 
   while (1)
   {
