@@ -71,7 +71,7 @@ void uart_init(usb_cdc_line_coding_t *line_coding)
 {
     int chsize, form, pmode, sbmode, baud, fp;
 
-    HAL_GPIO_UART_TX_pmuxen(UART_SERCOM_PMUX);
+    //HAL_GPIO_UART_TX_pmuxen(UART_SERCOM_PMUX);
 
     HAL_GPIO_UART_RX_pullup();
     HAL_GPIO_UART_RX_pmuxen(UART_SERCOM_PMUX);
