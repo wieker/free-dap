@@ -39,6 +39,8 @@ HAL_GPIO_PIN(MISO,            A, 6);
 HAL_GPIO_PIN(MOSI,            A, 4);
 HAL_GPIO_PIN(SCLK,            A, 5);
 HAL_GPIO_PIN(SS,              A, 7);
+HAL_GPIO_PIN(UART_TX,            A, 8);
+#define UART_SERCOM_PMUX         PORT_PMUX_PMUXE_D_Val
 #define SPI_SERCOM            SERCOM0
 #define SPI_SERCOM_PMUX       PORT_PMUX_PMUXE_D_Val
 #define SPI_SERCOM_GCLK_ID    SERCOM0_GCLK_ID_CORE
@@ -96,6 +98,11 @@ int spi_init(int freq, int mode)
 //-----------------------------------------------------------------------------
 void spi_ss(int state)
 {
+  if (!state) {
+      HAL_GPIO_UART_TX_pmuxdis();
+  } else {
+      HAL_GPIO_UART_TX_pmuxen(UART_SERCOM_PMUX);
+  }
   while (!SPI_SERCOM->SPI.INTFLAG.bit.DRE);
   HAL_GPIO_SS_write(state);
 }
