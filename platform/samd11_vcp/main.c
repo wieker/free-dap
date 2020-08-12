@@ -41,6 +41,7 @@
 #include "dap_config.h"
 
 #include "dgw.h"
+#include "gpio.h"
 
 /*- Definitions -------------------------------------------------------------*/
 #define USB_BUFFER_SIZE        64
@@ -322,6 +323,8 @@ int main(void)
   usb_hid_init();
 
   app_status_timeout = STATUS_TIMEOUT;
+  int i = 0;
+  gpio_configure(0, 20);
 
   while (1)
   {
@@ -331,6 +334,8 @@ int main(void)
     rx_task();
     uart_timer_task();
     status_timer_task();
+    gpio_write(0, i >> 16 == 0);
+    i = i == 1 << 17 ? 0 : i + 1;
   }
 
   return 0;
